@@ -18,7 +18,7 @@ def Show_Traductor_TTS():
     # Crear una ventana para el traductor de texto con TTS
     hide_all_frames()
     Traductor_TTS.show(Traductor_TTS_frame, show_menu)
-    root.geometry("800x400")
+    root.geometry("850x350")
 
 def Show_Traductor_Cap():
     # Crear una ventana para el traductor de capturas
