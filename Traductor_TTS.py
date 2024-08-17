@@ -41,7 +41,7 @@ def show(frame, show_menu):
     boton_TTs2 = ctk.CTkButton(frame, text="TTS", command=tts2)
     boton_TTs2.grid(row=3, column=1, pady=10)
 
-    boton_3 = ctk.CTkButton(frame, text="Captura", command=traducir, width=425)
+    boton_3 = ctk.CTkButton(frame, text="Traducir", command=traducir, width=425)
     boton_3.grid(row=4, column=0, columnspan=2, pady=10 )
 
     frame.pack(fill="both", expand=1)
