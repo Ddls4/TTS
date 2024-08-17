@@ -10,7 +10,6 @@ def show(frame, show_menu):
     hide_widgets(frame)
     
     def traducir():
-        #entry_x_cap = int(entry_1.get())  para entry
         entry_x_cap = entry_1.get(1.0, "end-1c") # Text
         translated_text = GoogleTranslator(source='auto', target='es').translate(entry_x_cap)
         entry_2.delete("1.0", END)

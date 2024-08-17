@@ -2,7 +2,6 @@ import tkinter as tk
 import customtkinter
 import pyttsx3
 
-
 import Traductor_TTS
 import Traductor_Cap
 
@@ -25,7 +24,7 @@ def Show_Traductor_Cap():
     hide_all_frames()
     Traductor_Cap.show(Traductor_Cap_frame, show_menu)
     root.title("Your App")
-    root.geometry("500x600")
+    root.geometry("480x450")
 
 
 def hide_all_frames():
