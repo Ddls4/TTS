@@ -1,4 +1,9 @@
-La idea del proyecto es poder traducir capturas de pantalla en tiempo real. 
-Esto sirve para esos casos donde quieres traducir un juego, por ejemplo Arknights o Blue Archive, ya que los diálogos están en un lugar fijo. Selecionas la zona de la captura y dejas que el programa valla traduciendo el texto.
+Este proyecto permite traducir capturas de pantalla en tiempo real, ideal para juegos como Arknights o Blue Archive, 
+donde los diálogos están en posiciones fijas en la pantalla.
 
-installar Tesseract-OCR
+╔══════════════════════╗
+║       Instalar       ║
+╚══════════════════════╝ 
+*   Tesseract-OCR
+    Asegúrate de agregarlo a tu variable de entorno PATH después de la instalación.
+
