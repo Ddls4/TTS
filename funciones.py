@@ -5,7 +5,7 @@ import pytesseract
 import time
 from tkinter import *
 
-pytesseract.pytesseract.tesseract_cmd = r'D:\10\Tesseract-OCR\Tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'D:\Tesseract-OCR\Tesseract'
 engine = pyttsx3.init()
 
 def traducirT(entry_x_cap, idioma_destino='es'):
