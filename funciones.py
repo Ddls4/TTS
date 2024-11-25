@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import filedialog
 
+import os
 from deep_translator import GoogleTranslator
 import pyttsx3
 import pytesseract
@@ -7,9 +9,37 @@ import time
 import pyautogui
 from pynput.mouse import Listener
 
+
 # ---------------- CAMABIAR LA RUTA a una manual -------------------
-pytesseract.pytesseract.tesseract_cmd = r'D:\Tesseract-OCR\Tesseract'
 engine = pyttsx3.init()
+def tesseract_pach(txtt):
+    config_file = "config.txt"
+
+    # Si existe un archivo de configuración, cargar la ruta guardada
+    if os.path.exists(config_file):
+        with open(config_file, "r") as file:
+            saved_path = file.read().strip()
+        if os.path.isfile(saved_path):
+            pytesseract.pytesseract.tesseract_cmd = saved_path
+            txtt.configure(text=f"Ruta cargada")
+            return
+        else:
+            txtt.configure(text="Ruta guardada no válida. Selecciona una nueva.")
+
+    # Si no existe el archivo o la ruta guardada no es válida, pedir al usuario
+    path = filedialog.askopenfilename(filetypes=[
+        ("Ejecutables", "*.exe"),
+        ("Todos los archivos", "*.*")
+    ])
+    if len(path) > 0 and os.path.isfile(path):
+        pytesseract.pytesseract.tesseract_cmd = path
+        txtt.configure(text=f"Ruta guardada")
+        # Guardar la ruta en el archivo config.txt
+        with open(config_file, "w") as file:
+            file.write(path)
+    else:
+        txtt.configure(text="No seleccionaste un archivo válido.")
+      
 
 def Captura_Pantalla(entry_x, entry_y, entry_ancho, entry_alto):
     region = (int(entry_x.get()), int(entry_y.get()), int(entry_ancho.get()) - int(entry_x.get()), int(entry_alto.get()) - int(entry_y.get()))
@@ -32,3 +62,4 @@ def marca_posicion():
         time.sleep(3)
         x, y = pyautogui.position()
         return x, y
+

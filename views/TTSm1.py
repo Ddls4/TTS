@@ -23,7 +23,7 @@ def TTSm1_frame(container):
         entry_ancho.insert(0, x)
         entry_alto.insert(0, y)
     # ---------------- CAMABIAR: Modularisar esto coord_inicial, coord_final = none -------------------
-    def on_click(x, y, button, pressed): 
+    def on_click(x, y,button, pressed):
         global coord_inicial, coord_final  
         if pressed:
             if coord_inicial is None:
@@ -39,14 +39,17 @@ def TTSm1_frame(container):
         coord_final = None
         with Listener(on_click=on_click) as listener:
             listener.join()
-        entry_x.delete(0, 'end')
-        entry_y.delete(0, 'end')
-        entry_ancho.delete(0, 'end')
-        entry_alto.delete(0, 'end') 
-        entry_x.insert(0, coord_inicial[0])
-        entry_y.insert(0, coord_inicial[1])
-        entry_ancho.insert(0, coord_final[0])
-        entry_alto.insert(0, coord_final[1])
+        if coord_inicial is not None and coord_final is not None:
+            entry_x.delete(0, 'end')
+            entry_y.delete(0, 'end')
+            entry_ancho.delete(0, 'end')
+            entry_alto.delete(0, 'end')
+            entry_x.insert(0, coord_inicial[0])
+            entry_y.insert(0, coord_inicial[1])
+            entry_ancho.insert(0, coord_final[0])
+            entry_alto.insert(0, coord_final[1])
+        else:
+            print("Error: No se completó la selección de coordenadas.")
     # --- Loop 
     def start_thread():
             thread = threading.Thread(target=run_while_true)
@@ -60,7 +63,6 @@ def TTSm1_frame(container):
                 print("¡Has presionado 'q'! Saliendo del bucle...")
                 insertar_texto("Saliendo del bucle...", text_area)
                 break
-            entry_lang_cap = "es"
             screenshot, text = Captura_Pantalla(entry_x, entry_y, entry_ancho, entry_alto)
             texto_traducido = TraducirTexto(text, entry_lang.get())
             insertar_texto(texto_traducido, text_area)
@@ -68,10 +70,9 @@ def TTSm1_frame(container):
                 print("¡Has presionado 'w'!")
                 Pronunciar(texto_traducido)
     def start_Pronunciar():
-        thread = threading.Thread(target=Pronunciar(texto_traducido))
+        thread = threading.Thread(target=Pronunciar(texto_traducido,(int(entry_vol.get())/ 100)))
         thread.daemon = True
-        thread.start()
-        
+        thread.start() 
     frame = tk.Frame(container)
     frame.place(relwidth=1, relheight=1)
     # ---------------------------------interfaz gráfica-----------------------------
@@ -82,17 +83,14 @@ def TTSm1_frame(container):
     entry_x.grid(row=1, column=0, padx=5, pady=5)
     entry_y = ctk.CTkEntry(frame, placeholder_text="Y")
     entry_y.grid(row=2, column=0, padx=5, pady=5)
-    Boton_XY = ctk.CTkButton(frame, text="XY",command=marca1, width=50, height=50)
-    Boton_XY.grid(row=1, column=1, rowspan=2)
+    Boton_XY = ctk.CTkButton(frame, text="XY",command=marca1, width=50, height=50).grid(row=1, column=1, rowspan=2)
     entry_ancho = ctk.CTkEntry(frame, placeholder_text="Ancho")
     entry_ancho.grid(row=1, column=2, padx=5, pady=5)
     entry_alto = ctk.CTkEntry(frame, placeholder_text="Alto")
     entry_alto.grid(row=2, column=2, padx=5, pady=5)
-    Boton_AA = ctk.CTkButton(frame, text="AA",command=marca2, width=50, height=50)
-    Boton_AA.grid(row=1, column=3, rowspan=2)
+    Boton_AA = ctk.CTkButton(frame, text="AA",command=marca2, width=50, height=50).grid(row=1, column=3, rowspan=2)
     # ----- ROW 3 -----
-    Boton_DC = ctk.CTkButton(frame, text="doble cap", command=marca, width=400, height=10)
-    Boton_DC.grid(row=3, column=0, columnspan=4)
+    Boton_DC = ctk.CTkButton(frame, text="doble cap", command=marca, width=400, height=10).grid(row=3, column=0, columnspan=4)
     
     # ROW 4 y 5 |   sticky="w"
     ctk.CTkLabel(frame, text="Volumen").grid(row=4, column=0)
